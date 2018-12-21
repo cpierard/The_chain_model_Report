@@ -16,12 +16,13 @@
 
 \maketitle
 
-
-%\chapter{INTRODUCTION}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Aims and Objectives}
 The objective of this practical work was modelling a distribution chain of a car under tension, and perform a static structural analysis in 3D. In particular, we wanted to calculate the maximum tensile stress applied to the chain considering a safety factor.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Synthesis of the Study}
 
 The chain distribution of a car consists of four types of pieces assembled together. In figure~\ref{fig:chain_scan} is possible to see the way in the four pieces are assembled to form the chain. In the figure, we can highlight that there are two types of links, an external one and an internal one.
@@ -84,7 +85,8 @@ The materials of the components of the chain are steel of different kinds depend
 
 The chain is under tension by means of pinions, which drive it at low speed to consider a static structural analysis. In other words, we assume that the chain is static and a force is applied in the direction along the chain moves.
 
-%\chapter{METHODOLOGY}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Methodology}
 
 For modelling the chain we used ANSYS, which is software for 3D designing and performing simulations in a wide variety of problems. In this case, we used it to perform a static structural analysis of the chain. Maybe to do this we could have drawn all the components of the whole chain to model the entire chain, so the study would have been more realistic. The problem in doing this is that it would have taken us too much time, and the computational time for simulating the dynamics would have been very large. Instead of doing this, we reduced the problem to the fundamental pieces, taking into account that the same parts of the chain repeat them self many times. Also, we used the symmetries present in the chain to reduce the problem in the fundamental parts, and from them, infer the behaviour of the whole chain.
@@ -124,136 +126,195 @@ Figure~\ref{chain_union} is a sketch of the simplest connection of the chain tha
 
 In figure~\ref{chain_union} as well, we can see two axes of symmetry parallel to the y-axis, in which the regions 1, 2 and 3 are similar (considering that there is an outer plate on region 1 and 4). This means that for studying the whole chain we can only simulate the region 2, in which the four different parts of the chain are involved. This implies that in the simulation we must only consider a quarter of each plate, and a semi-section of the axis and the socket. Also, is important to highlight that the force is applied in the positive x-direction.
 
-Once we simplified as much as possible the problem, we proceeded to do the do the analysis of the reduced parts of the chain. The chain links are connected with the socket and the axis. The outer plate is fixed to the axis, and the inner plate is fixed to the socket. The axis goes inside of the socket and these two pieces are movable, which gives the chain its freedom of movement in the y-direction. In the static analysis is complex to perform the study of the four parts, including the movables parts. For this reason we decided to treat each piece separately and link each piece using the boundary conditions that correspond to each one of the pieces. Thereby, we explain separatly the condicion under which we made the analysis for each piece.
+Once we simplified as much as possible the problem, we proceeded to do the do the analysis of the reduced parts of the chain. The chain links are connected with the socket and the axis. The outer plate is fixed to the axis, and the inner plate is fixed to the socket. The axis goes inside of the socket and these two pieces are movable, which gives the chain its freedom of movement in the y-direction. In the static analysis is complex to perform the study of the four parts, including the movables parts. For this reason we decided to treat each piece separately and link each piece using the boundary conditions that correspond to each one of the pieces. Thereby, we explain separately the condition under which we made the analysis for each piece.
 
 \subsection{Inner plate}
 
-as already explained before, we took only a quarter of the plate because of the symmetries. We considered one of the superior querters. To perform the analysis we draw this piece in ANSYS workbench, and introduced the material properties like the elastic limit.
+As already explained before, we took only a quarter of the plate because of the symmetries. We considered one of the superior quarters. To perform the analysis we draw this piece in ANSYS workbench, and introduced the material properties like the elastic limit. 
 
-Following this, we stablished the boundary conditions for sufaces of the plate:
+Following this, we established the boundary conditions for the surfaces of the plate as follows:
 
-\begin{\begin{itemize}
+\begin{itemize}
   \item \textit{Bottom surface}: the surface is fix in the y-direction but is free to move in the x and z directions.
-  \item \textit{Arc (surface inside the semicircle)}: In this surface we aplied the force in the positive x-direction.
+  \item \textit{Arc (surface inside the semicircle)}: In this surface we applied the force in the positive x-direction.
   \item \textit{Lateral surfaces}: the lateral surfaces are free to move in the three directions.
-  \item \textit{Side surce (symmetry with respect of the y-axis)}: this surface is set to move free in the y and z directions, but it cannot move in the x direction. This boundary condition opposes the force and with this we avoid the rigid body movement of the plate.
-\end{itemize}}
+  \item \textit{Side surface (symmetry with respect of the y-axis)}: this surface is set to move free in the y and z directions, but it cannot move in the x direction. This boundary condition opposes the force and with this we avoid the rigid body movement of the plate.
+  
+\end{itemize}
 
+Finally we performed the simulation, obtaining the stress and the displacement.
 
+\subsection{Outter plate}
 
-Big plate:
-Bottom surface: fix in the y component.
-Lateral surface: fix in x direction
-Inner surface of circle: force in x direction
+As well as for the inner plate we set up the material property and draw the geometry of only the superior quarter of the plate. Following this, we established the boundary conditions and performed the numerical simulation, obtaining the stress and the deformation. 
 
+The boundary conditions used for this plate were the same as for the inner plate. 
 
+\begin{itemize}
+  \item \textit{Bottom surface}: the surface is fix in the y-direction but is free to move in the x and z directions.
+  \item \textit{Arc (surface inside the semicircle)}: In this surface we applied the force in the positive x-direction.
+  \item \textit{Lateral surfaces}: the lateral surfaces are free to move in the three directions.
+  \item \textit{Side surface (symmetry with respect of the y-axis)}: this surface is set to move free in the y and z directions, but it cannot move in the x direction (avoiding rigid body movement).
+  
+\end{itemize}
+
+\subsection{Axis}
+
+For this part we divided the axis in two parts: the section that is in contact with the outer plate and the rest of the axis (until the middle). The outer part is what really interests us because the outer plate creates a shear force in the axis. The interior section of the section act as an anchor to this shear force. Also, the interior section of the axis will not deform because is enclosed by two inner plates that exert the same force in the same direction. So the main deformation and stress will be in the outer section of the piece. Hence we considered only the outer part of the axis.
+
+We divided the outer part of the axis in two parts (semi-cylinders), because there is only symmetry with respect to the x-direction, considering the symmetries in section 2 of figure~\ref{chain_union}. The boundary conditions for this piece of the axis are:
+
+\begin{itemize}
+\item \textit{Bottom surface}: Fixed in the y component. This is so because the force is applied along the x-direction and hence x-direction cannot be constrained as it will cause an overconstrained system. It was also not be constrained in the z-direction because that is the axis the deformation will tend to.
+
+\item \textit{Top surface (arc)}: In this surface the force is applied in the x-direction.
+
+\item \textit{Inner Lateral surface}: This is fixed in the x and z directions
+This surface is fixed in the x-direction even though the force is applied in the x-direction, because we do not want rigid body motion. It is also fixed in the z-direction because we are stating that the body under consideration is continuous in the z-direction i.e. taking into consideration that the axis has a length larger than the portion we are considering.
+
+\item \textit{Outer Lateral Surface}: This is free to move in all directions. There are no constraints in this surface.
+
+\end{itemize}
+
+\subsection{Socket}
+
+The socket is only in contact with the inner plate, so we analysed only this section, equivalent to the thickness of the inner plate. The boundary conditions for this part are:
+
+\begin{itemize}
+    \item \textit{Bottom surfaces}: As well as in the last three parts, this surfaces (there are two in the bottom) are fixed in the x-direction and free to move in the remaining two. 
+    \item \textit{Inner lateral surface}: this surface is where we cut the socket just to consider the section in contact with the inner plate. Because of this, the surface is fixed in the x and z direction, but is free to move in the y direction. This is the anchor for or simulation. 
+    \item \textit{Outer lateral surface}: This surface is free to move in all the three principal directions, assuming that the outer plate is not in contact with this socket.
+    \item \textit{Top arc surface}: This surface is enclosed by the inner plate, so it cannot move in the y and x directions, only in the z direction. This constraints are the anchor point for the piece to avoid free body motion.
+    \item \textit{Inner arc surface}: The force is applied in the x-direction in this surface.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Link hypothesis}
 
-Only the part of the axis in contact with the thickness of both plates was studied. This is so because the force we are studying is applied at two points (we more or less technically divided the axis into two). We studied the force applied at the surface of contact between the outer plate and the axis, also the force that is applied in between the surface of the inner plate and the axis. Another hypothesis is that under conditions of static equilibrium, these forces cancel out and are effectively equal and opposite and they create shear in the axis. Hence we considered only the outer part of the axis.
+In the four simulations made for the different parts of the chain, we determined the maximum stress each piece can hold before reaching the elastic limit. For this, we computed the theoretical max stress using the elastic limit for each material, and we divided it by the safety factor 1.3 (provided). Having the theoretical maximum stress, we performed the simulation changing the force applied to each one of the pieces of the chain, and we where able to find the force necessary to reach the maximum stress. The results are displayed in the results section, in table~\ref{table:results}. 
 
-Bottom surface: Fixed in the y component:
-This is so because the force is applied along the x-direction and hence x-direction cannot be constrained as it will cause an overconstrained system. It was also not constrained in the z-direction because that is the axis the deformation of will tend to (the z-axis) i.e. to give room for deformation.
+%%% READ the article that I sent you of the stress in the bycicke chain, we are going to use the same hypothesis to link both simulations.
 
-Inner Lateral surface: This is fixed in the x and z directions
-This surface is fixed in the x-direction even though the force is applied in the x-direction because we do not want rigid body motion (for the whole part under consideration to translate). It is also fixed in the z-direction because we are stating that the body under consideration is continuous in the z-direction i.e. taking into consideration that the axis has a length larger than the portion we are considering.
+To link the results of the simulation done for each one of the chain parts, we had to reconstruct the pieces that we cut with the help of the geometry of the chain. The way to link all the hypothesis is computing the total force applied to the whole chain. For doing this, we selected the smallest force of the pieces necessary to reach the maximum stress. This is the force that will be applied to all the reduced parts. Using this value of the force, we know that the section that we analysed was composed of four plates (two inner and two outer plates), one axis and one socket. The total force applied to the chain will be four times the corresponding force to reach the maximum stress on the weakest part of the chain. This meas that:
 
+\begin{equation}
+    \vec{F}_{Total} = 4 \vec{F}_{M.S.}.
+\end{equation}
 
-Outer Lateral Surface: This is FREE in all directions.
-This is to make up for fixing the inner up for fixing the inner la
+This is because the the force is evenly distributed between the four plates that compose each chain link. The total force computed is shown in the results section. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results and Discussion}
 
-%\chapter{RESULTS}
+In this section we show the results obtained in the numerical simulations obtained for the the four pieces. In special we show the deformation and the equivalent Von Mises stress.
+
 \subsection{Outer Plate}
+We can see from fig. \ref{fig:outer_deformation} that the displacement is tending towards the positive x-axis. This is a clear indication of the fact that we applied the force along the positive x-axis. Maximum displacement is experienced at the end as the displacement can be modelled as a linear function which increases with increasing length. A maximum displacement of about 8mm was seen for the applied force of 378N.   
+
+
 
 %%%%%%%%%%%%%%%%%%% Outer plate %%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{images/OUTER_CHAIN_DEFORMATION.png}
-    \caption{Caption}
+    \caption{Deformation in the outer plate. Units are in millimetres.}
     \label{fig:outer_deformation}
 \end{figure}
+
+Also from fig. 5 below a maximum equivalent Von-Mises stress of 422.5MPa was obtained. An interesting point to note is the region of action of that maximum stress. 
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{images/CHAIN_SMALL_STRESS_TEST_FINAL.jpg}
-    \caption{Caption}
+    \caption{Equivalent stress in the outer plate. Units are in mega pascals (MPa).}
     \label{fig:outer_stress}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\newpage
 \subsection{Inner Plate}
 
 %%%%%%%%%%%%%%%%%%%%%%% Inner plate %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{images/INNER_CHAIN_DEFORMATION.png}
-    \caption{Caption}
+    \caption{Deformation in the inner plate. Units are in millimetres.}
     \label{fig:inner_deformation}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{images/INNER_CHAIN_STRESS.png}
-    \caption{Caption}
+    \caption{Equivalent stress in the inner plate. Units are in mega pascals (MPa).}
     \label{fig:inner_stress}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \subsection{Axis}
 
 %%%%%%%%%%%%%%%%%%%%%%% Axis %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{images/AXIS_DISPLACEMENT.png}
-    \caption{Caption}
+    \caption{Deformation in the outer section of the axis. Units are in millimetres.}
     \label{fig:axis_deformation}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{images/AXIS_STRESS.png}
-    \caption{Caption}
+    \caption{Equivalent stress in the section of the axis. Units are in mega pascals (MPa).}
     \label{fig:axis_stress}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\newpage
 \subsection{Socket}
 
 %%%%%%%%%%%%%%%%%%%%%%% Socket %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{images/SOCKET_DEFORMATION.png}
-    \caption{Caption}
+    \caption{Deformation in the socket. Units are in millimetres.}
     \label{fig:socket_deformation}
 \end{figure}
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1\textwidth]{images/SOCKET_STRESS.png}
-    \caption{Caption}
+    \caption{Equivalent stress in the socket. Units are in mega pascals (MPa).}
     \label{fig:socket_stress}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\newpage
+%%%%%%%%%%%%%%%%%%%% TABLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
-\centering
+%\centering
+\begin{center}
 \begin{tabular}{|p{4cm}|c|c|c|c|}
 \hline
-  & \textbf{Outer Plate (A)} & \textbf{Inner Plate (B)} & \textbf{Axis} & \textbf{Socket} \\
-\hline
-Theoretical Stress considering Elastic Limit [MPa] & 423 & 423 & 469 & 576 \\
+  & \textbf{Outer Plate} & \textbf{Inner Plate} & \textbf{Axis} & \textbf{Socket} \\
 \hline
 Max. Force (Elastic Limit) [N] & 378 & 368 & 404.2 & 2500 \\
+\hline
+Theoretical Stress considering Elastic Limit [MPa] & 423 & 423 & 469 & 576 \\
 \hline
 Equivalent Von-Mises Stress [MPa] & 422.5 & 422.02 & 468.93 & 554 \\
 \hline
 \end{tabular}
 \caption{Comprehensive table of results}
+\label{table:results}
+\end{center}
 \end{table}
-%\chapter{CONCLUSION}
+
+%%%%%%%%%%%%%%%%%%%% END OF TABLE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{CONCLUSION}
 
 %\bibliographystyle{plain} %We don't have references, I think...
 %\bibliography{bibliography.bib}
